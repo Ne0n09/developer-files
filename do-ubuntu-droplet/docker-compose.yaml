@@ -43,6 +43,9 @@ services:
       - github.pat=
       - sendgrid.key=
       - client.header=CF-Connecting-IP
+      - s3.endpoint=dummy
+      - s3.accessKey=dummy
+      - s3.secretKey=dummy
     depends_on:
       - mongo
   viewer:
@@ -50,15 +53,14 @@ services:
       context: https://github.com/Remote-Falcon/remote-falcon-viewer.git
       args:
         - OTEL_OPTS=
+        - MONGO_URI=mongodb://root:root@mongo:27017/remote-falcon?authSource=admin
     image: viewer
     restart: always
     ports:
       - "8082:8082"
       - "8002:8002"
     environment:
-      - server.port=8082
-      - jwt.viewer=123456 #Change this to a random value
-      - spring.data.mongodb.uri=mongodb://root:root@mongo:27017/remote-falcon?authSource=admin
+      - quarkus.http.port=8082
       - client.header=CF-Connecting-IP
     depends_on:
       - mongo
@@ -70,7 +72,6 @@ services:
         - VERSION=1.0.0
         - CONTROL_PANEL_API=https://your_domain.com/remote-falcon-control-panel #Change "your_domain" to your real domain
         - VIEWER_API=https://your_domain.com/remote-falcon-viewer #Change "your_domain" to your real domain
-        - VIEWER_JWT_KEY=123456 #This should match the jwt.vieweer value in the viewer service
         - GOOGLE_MAPS_KEY=
         - PUBLIC_POSTHOG_KEY=
         - GA_TRACKING_ID=1
