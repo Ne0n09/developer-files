@@ -50,7 +50,7 @@ services:
     build:
       context: https://github.com/Remote-Falcon/remote-falcon-viewer.git
       args:
-        - OTEL_OPTS=
+        - OTEL_URI=
         - MONGO_URI=mongodb://root:root@mongo:27017/remote-falcon?authSource=admin
     restart: always
     ports:
