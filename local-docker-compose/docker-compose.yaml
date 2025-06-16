@@ -74,6 +74,8 @@ services:
         - GA_TRACKING_ID=1
         - HOSTNAME_PARTS=1
         - SOCIAL_META=
+        - SWAP_CP=false
+        - VIEWER_PAGE_SUBDOMAIN=
     restart: always
     ports:
       - "3000:3000"
