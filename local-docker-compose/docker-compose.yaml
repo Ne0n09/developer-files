@@ -11,15 +11,14 @@ services:
     build:
       context: https://github.com/Remote-Falcon/remote-falcon-plugins-api.git
       args:
-        - OTEL_OPTS=
+        - OTEL_URI=
+        - MONGO_URI=mongodb://root:root@mongo:27017/remote-falcon?authSource=admin
     restart: always
     ports:
       - "8083:8083"
       - "8003:8003"
     environment:
-      - server.port=8083
-      - spring.data.mongodb.uri=mongodb://root:root@mongo:27017/remote-falcon?authSource=admin
-      - server.servlet.context-path=/remote-falcon-plugins-api
+      - quarkus.http.port=8083
       - sequence-limit=200
     depends_on:
       - mongo
